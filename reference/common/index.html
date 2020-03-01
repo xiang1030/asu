@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Common - asu</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">asu</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Attendedsysupgrade Server for OpenWrt (GSoC 2017)</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li class="active">
+    <a href="./">Common</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../..">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="disabled">
+                                <a rel="prev" >
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#asu.common.get_file_hash">get_file_hash()</a></li>
+        <li class="main "><a href="#asu.common.get_packages_hash">get_packages_hash()</a></li>
+        <li class="main "><a href="#asu.common.get_request_hash">get_request_hash()</a></li>
+        <li class="main "><a href="#asu.common.get_str_hash">get_str_hash()</a></li>
+        <li class="main "><a href="#asu.common.verify_usign">verify_usign()</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="asu.common.get_file_hash"><code class="codehilite language-python">get_file_hash(path)</code><a class="headerlink" href="#asu.common.get_file_hash" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in /asu/common.py</summary><pre class="codehilite"><code class="language-python linenums">def get_file_hash(path: str) -&gt; str:
+    """Return sha256sum of given path
+
+    Args:
+        path (str): path to file
+
+    Returns:
+        str: hash of file
+    """
+    BLOCK_SIZE = 65536
+
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        fb = f.read(BLOCK_SIZE)
+        while len(fb) &gt; 0:
+            h.update(fb)
+            fb = f.read(BLOCK_SIZE)
+
+    return h.hexdigest()
+</code></pre>
+
+</details>
+<p>Return sha256sum of given path</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td><code>str</code></td>
+<td>path to file</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>str: hash of file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="asu.common.get_packages_hash"><code class="codehilite language-python">get_packages_hash(packages)</code><a class="headerlink" href="#asu.common.get_packages_hash" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in /asu/common.py</summary><pre class="codehilite"><code class="language-python linenums">def get_packages_hash(packages: list) -&gt; str:
+    """Return sha256sum of package list
+
+    Duplicate packages are automatically removed and the list is sorted to be
+    reproducible
+
+    Args:
+        packages (list ): list of packages
+
+    Returns:
+        str: hash of `request_data`
+    """
+    return get_str_hash(" ".join(sorted(list(set(packages)))), 12)
+</code></pre>
+
+</details>
+<p>Return sha256sum of package list</p>
+<p>Duplicate packages are automatically removed and the list is sorted to be
+reproducible</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>packages</code></td>
+<td><code>list</code></td>
+<td>list of packages</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>str: hash of <code>request_data</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="asu.common.get_request_hash"><code class="codehilite language-python">get_request_hash(request_data)</code><a class="headerlink" href="#asu.common.get_request_hash" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in /asu/common.py</summary><pre class="codehilite"><code class="language-python linenums">def get_request_hash(request_data: dict) -&gt; str:
+    """Return sha256sum of an image request
+
+    Creates a reproducible hash of the request by sorting the arguments
+
+    Args:
+        request_data (dict): dict contianing request information
+
+    Returns:
+        str: hash of `request_data`
+    """
+    request_data["packages_hash"] = get_packages_hash(request_data.get("packages", ""))
+    request_array = [
+        request_data.get("distro", ""),
+        request_data.get("version", ""),
+        request_data.get("profile", ""),
+        request_data["packages_hash"],
+        str(request_data.get("packages_diff", 0)),
+    ]
+    return get_str_hash(" ".join(request_array), 12)
+</code></pre>
+
+</details>
+<p>Return sha256sum of an image request</p>
+<p>Creates a reproducible hash of the request by sorting the arguments</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>request_data</code></td>
+<td><code>dict</code></td>
+<td>dict contianing request information</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>str: hash of <code>request_data</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="asu.common.get_str_hash"><code class="codehilite language-python">get_str_hash(string, length=32)</code><a class="headerlink" href="#asu.common.get_str_hash" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in /asu/common.py</summary><pre class="codehilite"><code class="language-python linenums">def get_str_hash(string: str, length: int = 32) -&gt; str:
+    """Return sha256sum of str with optional length
+
+    Args:
+        string (str): input string
+        length (int): hash length
+
+    Returns:
+        str: hash of string with specified length
+    """
+    h = hashlib.sha256()
+    h.update(bytes(string, "utf-8"))
+    response_hash = h.hexdigest()[:length]
+    return response_hash
+</code></pre>
+
+</details>
+<p>Return sha256sum of str with optional length</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td><code>str</code></td>
+<td>input string</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td><code>int</code></td>
+<td>hash length</td>
+<td><code>32</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>str: hash of string with specified length</td>
+</tr>
+</tbody>
+</table>
+<h2 id="asu.common.verify_usign"><code class="codehilite language-python">verify_usign(sig_file, msg_file, pub_key)</code><a class="headerlink" href="#asu.common.verify_usign" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in /asu/common.py</summary><pre class="codehilite"><code class="language-python linenums">def verify_usign(sig_file: Path, msg_file: Path, pub_key: str) -&gt; bool:
+    """Verify a signify/usign signature
+
+    This implementation uses pynacl
+
+    Args:
+        sig_file (Path): signature file
+        msg_file (Path): message file to be verified
+        pub_key (str): public key to use for verification
+
+    Returns:
+        bool: Sucessfull verification
+
+    Todo:
+         Currently ignores keynum and pkalg
+
+    """
+    pkalg, keynum, pubkey = struct.unpack("!2s8s32s", base64.b64decode(pub_key))
+    sig = base64.b64decode(sig_file.read_text().splitlines()[-1])
+
+    pkalg, keynum, sig = struct.unpack("!2s8s64s", sig)
+
+    verify_key = nacl.signing.VerifyKey(pubkey, encoder=nacl.encoding.RawEncoder)
+    try:
+        verify_key.verify(msg_file.read_bytes(), sig)
+        return True
+    except nacl.exceptions.CryptoError:
+        return False
+</code></pre>
+
+</details>
+<p>Verify a signify/usign signature</p>
+<p>This implementation uses pynacl</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sig_file</code></td>
+<td><code>Path</code></td>
+<td>signature file</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>msg_file</code></td>
+<td><code>Path</code></td>
+<td>message file to be verified</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>pub_key</code></td>
+<td><code>str</code></td>
+<td>public key to use for verification</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td>bool: Sucessfull verification</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>Currently ignores keynum and pkalg</p>
+</div></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
