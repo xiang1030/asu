@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Common - asu</title>
+        <title>asu.common - asu</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -54,7 +54,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li class="active">
-    <a href="./">Common</a>
+    <a href="./">asu.common</a>
 </li>
                                 </ul>
                             </li>
@@ -84,15 +84,17 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#asu.common.get_file_hash">get_file_hash()</a></li>
-        <li class="main "><a href="#asu.common.get_packages_hash">get_packages_hash()</a></li>
-        <li class="main "><a href="#asu.common.get_request_hash">get_request_hash()</a></li>
-        <li class="main "><a href="#asu.common.get_str_hash">get_str_hash()</a></li>
-        <li class="main "><a href="#asu.common.verify_usign">verify_usign()</a></li>
+        <li class="main active"><a href="#asucommon">asu.common</a></li>
+            <li><a href="#asu.common.get_file_hash">get_file_hash()</a></li>
+            <li><a href="#asu.common.get_packages_hash">get_packages_hash()</a></li>
+            <li><a href="#asu.common.get_request_hash">get_request_hash()</a></li>
+            <li><a href="#asu.common.get_str_hash">get_str_hash()</a></li>
+            <li><a href="#asu.common.verify_usign">verify_usign()</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
+<h1 id="asucommon">asu.common<a class="headerlink" href="#asucommon" title="Permanent link">&para;</a></h1>
 <h2 id="asu.common.get_file_hash"><code class="codehilite language-python">get_file_hash(path)</code><a class="headerlink" href="#asu.common.get_file_hash" title="Permanent link">&para;</a></h2>
 <details class="note"><summary>Show source code in /asu/common.py</summary><pre class="codehilite"><code class="language-python linenums">def get_file_hash(path: str) -&gt; str:
     """Return sha256sum of given path
