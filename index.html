@@ -94,6 +94,8 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="attendedsysupgrade-server-for-openwrt-gsoc-2017">Attendedsysupgrade Server for OpenWrt (GSoC 2017)<a class="headerlink" href="#attendedsysupgrade-server-for-openwrt-gsoc-2017" title="Permanent link">&para;</a></h1>
+<p><a href="https://codecov.io/gh/aparcar/asu"><img alt="codecov" src="https://codecov.io/gh/aparcar/asu/branch/master/graph/badge.svg" /></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
 <p>This project intends to simplify the sysupgrade process of devices running
 OpenWrt or distributions based on the former like LibreMesh. The provided tools
 here offer an easy way to reflash the router with a new version or package
@@ -110,10 +112,11 @@ It offers a device search based on model names and show links either to
 repository</a></p>
 <p><img alt="yafs" src="misc/yafs.png" /></p>
 <h3 id="luci-app">LuCI app<a class="headerlink" href="#luci-app" title="Permanent link">&para;</a></h3>
-<p>The package <code>luci-app-attendedsysupgrade</code> <a href="https://github.com/openwrt/luci/tree/master/applications/luci-app-attendedsysupgrade">still
-exists</a>
-but is currently not usable with the rewritten server implementation. The app
-will however be upgraded as soon as possible to be usable again.</p>
+<p>The package
+<a href="https://github.com/openwrt/luci/tree/master/applications/luci-app-attendedsysupgrade"><code>luci-app-attendedsysupgrade</code></a>
+offers a simple view under <code>System &gt; Attended Sysupgrade</code> to automatically
+request a new firmware, wait until it is build and flash it.</p>
+<p><img alt="luci" src="misc/luci.png" /></p>
 <h2 id="server">Server<a class="headerlink" href="#server" title="Permanent link">&para;</a></h2>
 <p>The server listens to image requests and automatically generate them if the
 request was valid. This is done by automatically setting up OpenWrt
@@ -404,5 +407,5 @@ encoded containing build information.</p>
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-03-05 10:17:48
+Build Date UTC : 2020-03-20 08:04:11
 -->
